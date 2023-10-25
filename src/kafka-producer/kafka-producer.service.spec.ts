@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { kafka } from '../kafka.config';  // Importing Kafka from your existing kafka.config.js
 
+
 @Injectable()
 export class KafkaConsumerService implements OnModuleInit {
   private consumer = kafka.consumer({ groupId: 'nestjs-kafka-group' });

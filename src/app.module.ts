@@ -11,3 +11,4 @@ import { KafkaConsumerModule } from './kafka-consumer/kafka-consumer.module';
   providers: [AppService, KafkaProducerService, KafkaConsumerService],  // Add the new service here
 })
 export class AppModule {}
+

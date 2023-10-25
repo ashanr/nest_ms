@@ -1,5 +1,7 @@
 version: '3.8'
 
+version: '3.8'
+
 services:
   # NestJS Application
   nest-app:
@@ -14,6 +16,7 @@ services:
     depends_on:
       - kafka
       - zookeeper
+      - mysql
 
   # Kafka
   kafka:
@@ -39,7 +42,21 @@ services:
     ports:
       - "2181:2181"
 
+  # MySQL
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: example
+      MYSQL_USER: example
+      MYSQL_PASSWORD: example
+    ports:
+      - "3306:3306"
+
 networks:
   default:
     external:
       name: kafka-network
+
+  
