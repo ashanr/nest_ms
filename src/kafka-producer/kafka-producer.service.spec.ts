@@ -1,18 +1,20 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { KafkaProducerService } from './kafka-producer.service';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { kafka } from '../kafka.config';  // Importing Kafka from your existing kafka.config.js
 
-describe('KafkaProducerService', () => {
-  let service: KafkaProducerService;
+@Injectable()
+export class KafkaConsumerService implements OnModuleInit {
+  private consumer = kafka.consumer({ groupId: 'nestjs-kafka-group' });
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [KafkaProducerService],
-    }).compile();
+  async onModuleInit() {
+    await this.consumer.connect();
+    await this.consumer.subscribe({ topic: 'test-topic', fromBeginning: true });
 
-    service = module.get<KafkaProducerService>(KafkaProducerService);
-  });
-
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+    await this.consumer.run({
+      eachMessage: async ({ topic, partition, message }) => {
+        console.log({
+          value: message.value.toString(),
+        });
+      },
+    });
+  }
+}
