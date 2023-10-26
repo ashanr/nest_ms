@@ -7,11 +7,13 @@ import { KafkaConsumerModule } from './kafka-consumer/kafka-consumer.module';
 import { LocationControllerController } from './location-controller/location-controller.controller';
 import { CoordinatesController } from './coordinates/coordinates.controller';
 import { CoordinatesConsumer } from './coordinates/coordinates.consumer';
+import { MongoDBService } from './mongodb/mongodb.service';
+
 
 @Module({
   imports: [KafkaConsumerModule],
   controllers: [AppController, LocationControllerController, CoordinatesController],
-  providers: [AppService, KafkaProducerService, KafkaConsumerService,CoordinatesConsumer],  // Add the new service here
+  providers: [AppService, KafkaProducerService, KafkaConsumerService,CoordinatesConsumer, MongoDBService],  // Add the new service here
 })
 export class AppModule {}
 
