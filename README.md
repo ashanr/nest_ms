@@ -6,23 +6,19 @@ This is a NestJS service for receiving and processing geological coordinates. It
 
 ## Installation
 
-\`\`\`bash
-# Install dependencies
-npm install
-\`\`\`
+    # Install dependencies
+    npm install
 
 ## Running the app
 
-\`\`\`bash
-# Development mode
-npm run start
+    # Development mode
+    npm run start
 
-# Watch mode
-npm run start:dev
+    # Watch mode
+    npm run start:dev
 
-# Production mode
-npm run start:prod
-\`\`\`
+    # Production mode
+    npm run start:prod
 
 ## API Endpoints
 
@@ -30,12 +26,12 @@ npm run start:prod
 
 - **Description**: Send geological coordinates to be processed and stored.
 - **Request Body**:
-  \`\`\`json
-  {
-    "latitude": "40.7128",
-    "longitude": "74.0060"
-  }
-  \`\`\`
+
+    {
+      "latitude": "40.7128",
+      "longitude": "74.0060"
+    }
+
 - **Response**: 200 OK
 
 ## Kafka Topics
