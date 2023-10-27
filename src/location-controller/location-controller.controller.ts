@@ -1,6 +1,6 @@
 
 
-import { Controller, Get, Post, Put, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Param, HttpException, HttpStatus } from '@nestjs/common';
 
 @Controller('location-controller')
 export class LocationControllerController {

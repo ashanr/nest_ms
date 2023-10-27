@@ -1,6 +1,6 @@
 
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Get, Body, BadRequestException } from '@nestjs/common';
 import { CoordinatesService } from './coordinates.service';
 import { CreateCoordinateDto } from './coordinates.dto';
 
@@ -8,6 +8,10 @@ import { CreateCoordinateDto } from './coordinates.dto';
 @Controller('coordinates')
 export class CoordinatesController {
   constructor(private readonly coordinatesService: CoordinatesService) {}
+  @Get()
+    findAll(): string {
+        return 'This is your API endpoint!';
+  }
 
   @Client({
     transport: Transport.KAFKA,
@@ -22,10 +26,10 @@ export class CoordinatesController {
   })
   private client: ClientKafka;
 
-  @Post()
-  async sendCoordinates(@Body() coordinates: any) {
-    this.client.emit<number>('coordinates_topic', coordinates);
-  }
+  // @Post()
+  // async sendCoordinates(@Body() coordinates: any) {
+  //   this.client.emit<number>('coordinates_topic', coordinates);
+  // }
 
 
   @Post()

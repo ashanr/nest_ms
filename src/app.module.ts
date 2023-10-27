@@ -8,10 +8,12 @@ import { LocationControllerController } from './location-controller/location-con
 import { CoordinatesController } from './coordinates/coordinates.controller';
 import { CoordinatesConsumer } from './coordinates/coordinates.consumer';
 import { MongoDBService } from './mongodb/mongodb.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Coordinate, CoordinateSchema } from './mongodb/coordinate.schema';
 
 
 @Module({
-  imports: [KafkaConsumerModule],
+  imports: [KafkaConsumerModule,    MongooseModule.forFeature([{ name: Coordinate.name, schema: CoordinateSchema }])],
   controllers: [AppController, LocationControllerController, CoordinatesController],
   providers: [AppService, KafkaProducerService, KafkaConsumerService,CoordinatesConsumer, MongoDBService],  // Add the new service here
 })
