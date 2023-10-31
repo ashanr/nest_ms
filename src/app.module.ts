@@ -11,11 +11,18 @@ import { MongoDBService } from './mongodb/mongodb.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Coordinate, CoordinateSchema } from './mongodb/coordinate.schema';
 
+console.log('MongoDB URI:', process.env.MONGODB_URI);
 
 @Module({
-  imports: [KafkaConsumerModule,    MongooseModule.forFeature([{ name: Coordinate.name, schema: CoordinateSchema }])],
+  imports: [
+    KafkaConsumerModule, 
+    MongooseModule.forFeature([{ name: Coordinate.name, schema: CoordinateSchema }]),
+    MongooseModule.forRoot(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+    })
+  ],
   controllers: [AppController, LocationControllerController, CoordinatesController],
-  providers: [AppService, KafkaProducerService, KafkaConsumerService,CoordinatesConsumer, MongoDBService],  // Add the new service here
+  providers: [AppService, KafkaProducerService, KafkaConsumerService, CoordinatesConsumer, MongoDBService],
 })
 export class AppModule {}
 
