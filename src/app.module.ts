@@ -11,7 +11,10 @@ import { MongoDBService } from './mongodb/mongodb.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Coordinate, CoordinateSchema } from './mongodb/coordinate.schema';
 
+
 console.log('MongoDB URI:', process.env.MONGODB_URI);
+
+
 
 @Module({
   imports: [
