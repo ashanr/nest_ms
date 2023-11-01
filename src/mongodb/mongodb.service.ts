@@ -8,12 +8,12 @@ export class MongoDBService {
   private readonly logger = new Logger(MongoDBService.name);
 
   constructor(
-    @InjectModel(Coordinates.name) private coordinateModel: Model<CoordinateDocument>,
+    @InjectModel(Coordinates.name) private coordinatesModel: Model<Coordinates>,
   ) {}
 
   async saveCoordinates(coordinates: any): Promise<Coordinates> {
     try {
-      const createdCoordinate = new this.coordinateModel(coordinates);
+      const createdCoordinate = new this.coordinatesModel(coordinates);
       const result = await createdCoordinate.save();
       this.logger.log(`Coordinates saved: ${JSON.stringify(result)}`);
       return result;
