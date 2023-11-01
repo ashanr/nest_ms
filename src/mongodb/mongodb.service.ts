@@ -1,17 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Coordinate, CoordinateDocument } from './coordinate.schema';
+import { Coordinates, CoordinateDocument } from '../coordinates/schema/coordinates.schema';
 
 @Injectable()
 export class MongoDBService {
   private readonly logger = new Logger(MongoDBService.name);
 
   constructor(
-    @InjectModel(Coordinate.name) private coordinateModel: Model<CoordinateDocument>,
+    @InjectModel(Coordinates.name) private coordinateModel: Model<CoordinateDocument>,
   ) {}
 
-  async saveCoordinates(coordinates: any): Promise<Coordinate> {
+  async saveCoordinates(coordinates: any): Promise<Coordinates> {
     try {
       const createdCoordinate = new this.coordinateModel(coordinates);
       const result = await createdCoordinate.save();

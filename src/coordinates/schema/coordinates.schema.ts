@@ -1,5 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ValidationError } from 'mongoose';
+import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+
+export type CoordinateDocument = Coordinates & Document;
+
 
 @Schema()
 export class Coordinates extends Document {
@@ -18,8 +22,8 @@ export class Coordinates extends Document {
         validator: function (values: Array<number>) {
           return values.length == 2;
         },
-        message: (props: ValidationError) =>
-          `${props.value} should have exactly 2 items where index 0 is lng & index 1 is lat`,
+        message: (props: mongoose.Error.ValidationError) =>
+          `${(props as any).path} should have exactly 2 items where index 0 is lng & index 1 is lat`,
       },
       required: true,
     },

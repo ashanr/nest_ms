@@ -8,12 +8,11 @@ import { CoordinatesController } from './coordinates/coordinates.controller';
 import { CoordinatesConsumer } from './coordinates/coordinates.consumer';
 import { MongoDBService } from './mongodb/mongodb.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Coordinate, CoordinateSchema } from './mongodb/coordinate.schema';
 import { CoordinatesService } from './coordinates/coordinates.service';
 import * as dotenv from 'dotenv';
 import { getModelToken } from '@nestjs/mongoose';
 import { RoutesModule } from './routes/routes.module';
-
+import { CoordinatesModule } from './coordinates/coordinates.module';
 
 dotenv.config({ path: './.env' });
 
@@ -21,7 +20,8 @@ dotenv.config({ path: './.env' });
   imports: [
     KafkaConsumerModule, 
     RoutesModule,
-    MongooseModule.forFeature([{ name: Coordinate.name, schema: CoordinateSchema }]),
+    CoordinatesModule,
+    MongooseModule.forFeature(),
     MongooseModule.forRoot(process.env['MONGODB_URI'], {
       serverSelectionTimeoutMS: 5000,
     })
