@@ -1,6 +1,6 @@
 
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
-import { Controller, Post, Get, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Put, Get, Body, BadRequestException } from '@nestjs/common';
 import { CoordinatesService } from './coordinates.service';
 import { CreateCoordinateDto } from './coordinates.dto';
 import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
@@ -50,5 +50,10 @@ export class CoordinatesController {
       }
       throw new BadRequestException('An error occurred while saving to MongoDB.');
     }
+  }
+
+  @Put(':routeId')
+  async update(@Param('routeId') routeId: string, @Body() updateCoordinatesDto: UpdateCoordinatesDto): Promise<Coordinates> {
+    return this.coordinatesService.update(routeId, updateCoordinatesDto);
   }
 }
