@@ -7,7 +7,8 @@ export class CoordinatesConsumer implements OnModuleInit {
     constructor(private readonly mongoDBService: MongoDBService) {}
 
     onModuleInit() {
-        throw new Error('Method not implemented.');
+        console.log("coordinates consumer started");
+        // throw new Error('Method not implemented.');
     }
 
     @EventPattern('coordinates_topic')

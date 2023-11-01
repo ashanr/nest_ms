@@ -4,9 +4,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 
 
-dotenv.config();
+// dotenv.config();
 
-console.log(process.env);
+dotenv.config({ path: './.env' });
+
+console.log("MONGODB_URI: NEW", process.env['MONGODB_URI']);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

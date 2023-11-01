@@ -10,22 +10,27 @@ import { CoordinatesConsumer } from './coordinates/coordinates.consumer';
 import { MongoDBService } from './mongodb/mongodb.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Coordinate, CoordinateSchema } from './mongodb/coordinate.schema';
+import { CoordinatesService } from './coordinates/coordinates.service';
+import * as dotenv from 'dotenv';
+import { getModelToken } from '@nestjs/mongoose';
 
 
-console.log('MongoDB URI:', process.env.MONGODB_URI);
-
-
+dotenv.config({ path: './.env' });
 
 @Module({
   imports: [
     KafkaConsumerModule, 
     MongooseModule.forFeature([{ name: Coordinate.name, schema: CoordinateSchema }]),
-    MongooseModule.forRoot(process.env.MONGODB_URI, {
+    MongooseModule.forRoot(process.env['MONGODB_URI'], {
       serverSelectionTimeoutMS: 5000,
     })
   ],
   controllers: [AppController, LocationControllerController, CoordinatesController],
-  providers: [AppService, KafkaProducerService, KafkaConsumerService, CoordinatesConsumer, MongoDBService],
+  providers: [AppService, KafkaProducerService, KafkaConsumerService, CoordinatesConsumer, MongoDBService,   CoordinatesService,
+    {
+      provide: getModelToken('Coordinate'),
+      useValue: {}, // Mock the Mongoose model here
+    },],
 })
 export class AppModule {}
 
