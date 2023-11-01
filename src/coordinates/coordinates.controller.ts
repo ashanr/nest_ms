@@ -5,7 +5,7 @@ import { CoordinatesService } from './coordinates.service';
 import { CreateCoordinateDto } from './coordinates.dto';
 import { UpdateCoordinatesDto } from './dto/update-coordinates.dto';
 import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
-
+import { Coordinates } from './schema/coordinates.schema';
 
 @Controller('coordinates')
 export class CoordinatesController {
