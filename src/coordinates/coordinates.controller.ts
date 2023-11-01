@@ -1,8 +1,9 @@
 
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
-import { Controller, Post, Put, Get, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Put, Get, Body, BadRequestException, Param } from '@nestjs/common';
 import { CoordinatesService } from './coordinates.service';
 import { CreateCoordinateDto } from './coordinates.dto';
+import { UpdateCoordinatesDto } from './dto/update-coordinates.dto';
 import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 
 
@@ -29,14 +30,8 @@ export class CoordinatesController {
   })
   private client: ClientKafka;
 
-  // @Post()
-  // async sendCoordinates(@Body() coordinates: any) {
-  //   this.client.emit<number>('coordinates_topic', coordinates);
-  // }
-
 
   @ApiOperation({ summary: 'Create a new coordinate' })
-  // @ApiBody({ type: CreateCoordinateDto })
   @ApiParam({ name: 'lattitude', type: String, description: 'The lattitude of the coordinate' })
   @ApiParam({ name: 'longitude', type: String, description: 'The longitude of the coordinate' })
   @Post()
@@ -52,6 +47,9 @@ export class CoordinatesController {
     }
   }
 
+  @ApiOperation({ summary: 'Update coordinates by route ID' })
+  @ApiParam({ name: 'routeId', description: 'ID of the route to update' })
+  @ApiBody({ type: UpdateCoordinatesDto })
   @Put(':routeId')
   async update(@Param('routeId') routeId: string, @Body() updateCoordinatesDto: UpdateCoordinatesDto): Promise<Coordinates> {
     return this.coordinatesService.update(routeId, updateCoordinatesDto);

@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { KafkaProducerService } from './kafka-producer/kafka-producer.service';
 import { KafkaConsumerService } from './kafka-consumer/kafka-consumer.service';  // Import the new service
 import { KafkaConsumerModule } from './kafka-consumer/kafka-consumer.module';
-import { LocationControllerController } from './location-controller/location-controller.controller';
 import { CoordinatesController } from './coordinates/coordinates.controller';
 import { CoordinatesConsumer } from './coordinates/coordinates.consumer';
 import { MongoDBService } from './mongodb/mongodb.service';
@@ -27,7 +26,7 @@ dotenv.config({ path: './.env' });
       serverSelectionTimeoutMS: 5000,
     })
   ],
-  controllers: [AppController, LocationControllerController, CoordinatesController],
+  controllers: [AppController, CoordinatesController],
   providers: [AppService, KafkaProducerService, KafkaConsumerService, CoordinatesConsumer, MongoDBService,   CoordinatesService,
     {
       provide: getModelToken('Coordinate'),
