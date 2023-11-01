@@ -4,12 +4,17 @@ import { Model } from 'mongoose';
 import { Document } from 'mongoose';  // Import Document from mongoose
 
 @Injectable()
-export class MongoDBService<T extends Document> {  // Make the service generic
+export class MongoDBService<T extends Document> {
+  saveCoordinates(coordinates: any) {
+    throw new Error('Method not implemented.');
+  }  // Make the service generic
   private readonly logger = new Logger(MongoDBService.name);
 
-  constructor(
-    @InjectModel('MODEL_NAME') private model: Model<T>,  // Inject a generic model
-  ) {}
+  private model: Model<T>;
+
+  setModel(model: Model<T>) {
+    this.model = model;
+  }
 
   async saveDocument(document: any): Promise<T> {  // Generic method to save any document
     try {

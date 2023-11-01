@@ -14,11 +14,11 @@ import { Model } from 'mongoose';
   providers: [
     CoordinatesService,
     {
-      provide: 'CoordinatesMongoDBService',  // Provide a specific name
-      useFactory: (coordinatesModel: Model<Coordinates>) => {
-        return new MongoDBService<Coordinates>(coordinatesModel);  // Pass the specific model
+      provide: 'InitCoordinatesService',
+      useFactory: (mongoDBService: MongoDBService<any>, coordinatesModel: Model<Coordinates>) => {
+        mongoDBService.setModel(coordinatesModel);
       },
-      inject: [getModelToken(Coordinates.name)],  // Inject the specific model
+      inject: [MongoDBService, getModelToken(Coordinates.name)],
     },
   ],
   // ... other configurations

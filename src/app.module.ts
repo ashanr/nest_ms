@@ -13,7 +13,7 @@ import * as dotenv from 'dotenv';
 import { getModelToken } from '@nestjs/mongoose';
 import { RoutesModule } from './routes/routes.module';
 import { CoordinatesModule } from './coordinates/coordinates.module';
-import { MongoDBModule } from './mongodb/mongodb.module';
+import { MongoDBModule } from './mongodb/mongodb.module';  
 
 dotenv.config({ path: './.env' });
 
@@ -28,12 +28,8 @@ dotenv.config({ path: './.env' });
       serverSelectionTimeoutMS: 5000,
     })
   ],
-  controllers: [AppController, CoordinatesController],
-  providers: [AppService, KafkaProducerService, KafkaConsumerService, CoordinatesConsumer, MongoDBService,   CoordinatesService,
-    {
-      provide: getModelToken('Coordinate'),
-      useValue: {}, // Mock the Mongoose model here
-    },],
+  controllers: [AppController],
+  providers: [AppService, KafkaProducerService, KafkaConsumerService, CoordinatesConsumer],
 })
 export class AppModule {}
 
