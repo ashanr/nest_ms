@@ -1,19 +1,15 @@
-import { Module } from '@nestjs/common';
-import { MongooseModule ,getModelToken } from '@nestjs/mongoose';
-import { Coordinates, CoordinatesSchema } from '../coordinates/schema/coordinates.schema';
-import { CoordinatesModule } from '../coordinates/coordinates.module';  // Import CoordinatesModule
-
+import { Module, Global } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { MongoDBService } from './mongodb.service';
 
+@Global()
 @Module({
   imports: [
-    CoordinatesModule,
-    MongooseModule.forFeature([{ name: Coordinates.name, schema: CoordinatesSchema }])
+    MongooseModule.forRoot(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+    }),
   ],
-  providers: [MongoDBService , {
-    provide: getModelToken(Coordinates.name),
-    useValue: Coordinates,
-    },
-  ],
+  providers: [MongoDBService],
+  exports: [MongoDBService], 
 })
 export class MongoDBModule {}
