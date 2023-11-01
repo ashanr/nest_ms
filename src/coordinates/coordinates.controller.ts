@@ -3,11 +3,14 @@ import { Client, ClientKafka, Transport } from '@nestjs/microservices';
 import { Controller, Post, Get, Body, BadRequestException } from '@nestjs/common';
 import { CoordinatesService } from './coordinates.service';
 import { CreateCoordinateDto } from './coordinates.dto';
+import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 
 
 @Controller('coordinates')
 export class CoordinatesController {
   constructor(private readonly coordinatesService: CoordinatesService) {}
+
+  @ApiOperation({ summary: 'Get all coordinates' })
   @Get()
     findAll(): string {
         return 'This is your API endpoint!';
@@ -32,6 +35,10 @@ export class CoordinatesController {
   // }
 
 
+  @ApiOperation({ summary: 'Create a new coordinate' })
+  // @ApiBody({ type: CreateCoordinateDto })
+  @ApiParam({ name: 'lattitude', type: String, description: 'The lattitude of the coordinate' })
+  @ApiParam({ name: 'longitude', type: String, description: 'The longitude of the coordinate' })
   @Post()
   async create(@Body() createCoordinateDto: CreateCoordinateDto) {
     try {

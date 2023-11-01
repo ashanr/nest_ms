@@ -1,9 +1,19 @@
 import { IsNumber } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCoordinateDto {
-  @IsNumber()
-  latitude: number;
 
+  @ApiProperty({
+    example: '40.7128',
+    description: 'The latitude',
+  })
   @IsNumber()
-  longitude: number;
+  latitude: string;
+
+  @ApiProperty({
+    example: '74.0060',
+    description: 'The longitude',
+  })
+  @IsNumber()
+  longitude: string;
 }
