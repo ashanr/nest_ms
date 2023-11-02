@@ -7,11 +7,12 @@ import {
   Body,
   BadRequestException,
   Param,
+  Query,
 } from '@nestjs/common';
 import { CoordinatesService } from './coordinates.service';
 import { CreateCoordinatesDto } from './dto/create-coordinates.dto';
 import { UpdateCoordinatesDto } from './dto/update-coordinates.dto';
-import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { ApiBody, ApiTags, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { Coordinates } from './schema/coordinates.schema';
 
 @Controller('coordinates')
@@ -47,12 +48,13 @@ export class CoordinatesController {
     return this.coordinatesService.update(routeId, updateCoordinatesDto);
   }
 
-  @ApiParam({
+  @ApiQuery({
     name: 'routeId',
     description: 'Get coordinates for a specific routeId',
   })
   @Get()
-  async get(@Param('routeId') routeId: string): Promise<Coordinates[]> {
+  async get(@Query('routeId') routeId: string): Promise<Coordinates[]> {
+    console.log("routeId", routeId);
     return this.coordinatesService.get(routeId);
   }
 }
