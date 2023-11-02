@@ -54,7 +54,6 @@ export class CoordinatesController {
   })
   @Get()
   async get(@Query('routeId') routeId: string): Promise<Coordinates[]> {
-    console.log("routeId", routeId);
     return this.coordinatesService.get(routeId);
   }
 }
