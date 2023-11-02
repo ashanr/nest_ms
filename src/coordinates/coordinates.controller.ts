@@ -22,8 +22,10 @@ export class CoordinatesController {
     } catch (error) {
       if (error.name === 'ValidationError') {
         throw new BadRequestException(error.message);
+      }else{
+        throw new BadRequestException(error.message);
       }
-      throw new BadRequestException('An error occurred while saving to MongoDB.');
+      // throw new BadRequestException('An error occurred while saving to MongoDB.');
     }
   }
 
