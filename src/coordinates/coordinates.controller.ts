@@ -12,8 +12,8 @@ export class CoordinatesController {
   constructor(private readonly coordinatesService: CoordinatesService) {}
 
   @ApiOperation({ summary: 'Create a new coordinate' })
-  @ApiParam({ name: 'lattitude', type: String, description: 'The lattitude of the coordinate' })
-  @ApiParam({ name: 'longitude', type: String, description: 'The longitude of the coordinate' })
+  // @ApiParam({ name: 'lattitude', type: String, description: 'The lattitude of the coordinate' })
+  // @ApiParam({ name: 'longitude', type: String, description: 'The longitude of the coordinate' })
   @Post()
   async create(@Body() createCoordinateDto: CreateCoordinatesDto) {
     try {

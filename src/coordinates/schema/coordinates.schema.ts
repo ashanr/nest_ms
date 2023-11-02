@@ -4,31 +4,19 @@ import * as mongoose from 'mongoose';
 
 export type CoordinateDocument = Coordinates & Document;
 
-
-
 @Schema()
 export class Coordinates extends Document {
   @Prop()
   routeId: string;
 
-  @Prop({
-    type: {
-      type: String,
-      enum: ['Point'],
-      default: 'Point',
-    },
-    coordinates: {
-      type: [String],
-      required: true,
-    }
+  @Prop({ type: String, required: true })
+  latitude: string;
 
-  })
-  location: Record<string, any>;
+  @Prop({ type: String, required: true })
+  longitude: string;
 
   @Prop()
   name: string;
 }
-
-
 
 export const CoordinatesSchema = SchemaFactory.createForClass(Coordinates);
