@@ -1,10 +1,18 @@
-
 import { Client, ClientKafka, Transport } from '@nestjs/microservices';
-import { Controller, Post, Put, Get, Body, BadRequestException, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Put,
+  Get,
+  Body,
+  BadRequestException,
+  Param,
+  Query,
+} from '@nestjs/common';
 import { CoordinatesService } from './coordinates.service';
 import { CreateCoordinatesDto } from './dto/create-coordinates.dto';
 import { UpdateCoordinatesDto } from './dto/update-coordinates.dto';
-import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { ApiBody, ApiTags, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { Coordinates } from './schema/coordinates.schema';
 
 @Controller('coordinates')
@@ -22,7 +30,7 @@ export class CoordinatesController {
     } catch (error) {
       if (error.name === 'ValidationError') {
         throw new BadRequestException(error.message);
-      }else{
+      } else {
         throw new BadRequestException(error.message);
       }
       // throw new BadRequestException('An error occurred while saving to MongoDB.');
@@ -33,7 +41,19 @@ export class CoordinatesController {
   @ApiParam({ name: 'routeId', description: 'ID of the route to update' })
   @ApiBody({ type: UpdateCoordinatesDto })
   @Put(':routeId')
-  async update(@Param('routeId') routeId: string, @Body() updateCoordinatesDto: UpdateCoordinatesDto): Promise<Coordinates> {
+  async update(
+    @Param('routeId') routeId: string,
+    @Body() updateCoordinatesDto: UpdateCoordinatesDto,
+  ): Promise<Coordinates> {
     return this.coordinatesService.update(routeId, updateCoordinatesDto);
+  }
+
+  @ApiQuery({
+    name: 'routeId',
+    description: 'Get coordinates for a specific routeId',
+  })
+  @Get()
+  async get(@Query('routeId') routeId: string): Promise<Coordinates[]> {
+    return this.coordinatesService.get(routeId);
   }
 }

@@ -12,4 +12,7 @@ export class CreateCoordinatesDto {
 
   @ApiProperty({ example: 'Times Square', description: 'Location name' })
   name: string;
+
+  @ApiProperty({ example: 1, description: 'Waypoint Index' })
+  waypointIndex: number;
 }
