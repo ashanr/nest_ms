@@ -12,6 +12,7 @@ console.log("MONGODB_URI: NEW", process.env['MONGODB_URI']);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Coordinates API')
